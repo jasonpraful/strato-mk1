@@ -4,7 +4,6 @@ import logging
 import subprocess
 import threading
 import time
-# log to file
 logging.basicConfig(
     # filename='/home/pi/strato/logs/main_log.log',
     format='%(asctime)s - %(message)s',
@@ -50,7 +49,6 @@ def getGPSData():
 
 
 if __name__ == "__main__":
-    # multithreading function every 3 seconds infinite times
     logging.warning("=====Program has started=====")
     weather_thread = threading.Thread(target=getWeatherData)
     gps_thread = threading.Thread(target=getGPSData)

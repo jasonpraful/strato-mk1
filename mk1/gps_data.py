@@ -3,11 +3,9 @@ import pynmea2
 import serial
 import time
 import logging
-# log to file
 logging.basicConfig(filename='/home/pi/strato/gps_data.log',
                     format='%(asctime)s - %(message)s',
                     datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
-# initialize serial port
 serial_port = serial.Serial("/dev/ttyAMA0", baudrate=9600, timeout=0.5)
 
 

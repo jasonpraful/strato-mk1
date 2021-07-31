@@ -1,0 +1,13 @@
+.history
+
+__pycache__
+
+mk1/__pycache__
+
+secrets
+
+env
+
+server.py
+pushtoserver.py
+todo.txt

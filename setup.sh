@@ -9,6 +9,7 @@ mkdir ~/strato/logs
 
 # installing python and pip
 sudo apt-get install python3-pip python3-dev 
+clear
 
 # Installing Sensor Dependencies
 echo 'Installing dependencies'

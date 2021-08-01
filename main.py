@@ -1,11 +1,11 @@
 from mk1.bmp280 import bmp_data
-#from mk1.gps_data import GPSData
+from mk1.gps_data import GPSData
 import logging
 import subprocess
 import threading
 import time
 logging.basicConfig(
-    # filename='/home/pi/strato/logs/main_log.log',
+    filename='/home/pi/strato/logs/main_log.log',
     format='%(asctime)s - %(message)s',
     datefmt='%d-%b-%y %H:%M:%S',
     level=logging.INFO)
@@ -30,8 +30,9 @@ class StratoData:
         gpsdata = GPSData()
         gpsdata.get_gps_data()
         self.gpsdata = gpsdata.return_data()
+        print(self.gpsdata)
         logging.info(
-            f"Latitude: {self.gpsdata['latitude']} Longtitude: {self.gpsdata['longitude']} GPS Time: {self.gpsdata['gps_time']} Speed: {self.gpsdata['speed']}")
+            f"Latitude: {self.gpsdata['latitude']} Longtitude: {self.gpsdata['longitude']} GPS Time: {self.gpsdata['gps_time']} GPS Date: {self.gpsdata['gps_date']} Speed: {self.gpsdata['speed']} GPS Altitude: {self.gpsdata['altitude']}")
 
 
 def getWeatherData():
@@ -54,5 +55,5 @@ if __name__ == "__main__":
     gps_thread = threading.Thread(target=getGPSData)
     weather_thread.start()
     gps_thread.start()
-    weather_thread.join()
-    gps_thread.join()
+    # weather_thread.join()
+    # gps_thread.join()

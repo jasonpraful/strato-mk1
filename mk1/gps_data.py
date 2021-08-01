@@ -3,7 +3,13 @@ import pynmea2
 import serial
 import time
 import logging
+from datetime import datetime
 serial_port = serial.Serial("/dev/ttyAMA0", baudrate=9600, timeout=0.5)
+log = logging.getLogger('main.gpsdata')
+gps_hdlr = logging.FileHandler(
+    f'/home/pi/strato/gps/gps_data{datetime.today()}.log', mode="w")
+log.addHandler(gps_hdlr)
+log.setLevel(logging.DEBUG)
 
 
 class GPSData:
@@ -18,7 +24,7 @@ class GPSData:
         self.gps_time = 0
         self.gps_date = 0
         self.lat_dir = 'NA'
-        self.lon_dir = 'NA'
+        self.lon_dir = 'NA' 
         self.type = "NONE"
 
     def get_gps_data(self):
@@ -53,6 +59,20 @@ class GPSData:
             self.fix_quality = newmsg.gps_qual
 
     def return_data(self):
+        log.debug({
+            'latitude': self.lat if self.lat != 0 else "NA",
+            'longitude': self.lon if self.lon != 0 else "NA",
+            'speed': self.speed if self.speed != 0 else "NA",
+            'altitude': self.altitude if self.altitude != 0 else "NA",
+            'horizontal_dil': self.hdop if self.hdop != 0 else "NA",
+            'fix_quality': self.fix_quality if self.fix_quality != 0 else "NA",
+            'num_sats': self.num_sats if self.num_sats != 0 else "NA",
+            'gps_time': self.gps_time if self.gps_time != 0 else "NA",
+            'gps_date': self.gps_date if self.gps_date != 0 else "NA",
+            'lat_dir': self.lat_dir,
+            'lon_dir': self.lon_dir,
+            'type': self.type,
+        })
         return {
             'latitude': self.lat if self.lat != 0 else "NA",
             'longitude': self.lon if self.lon != 0 else "NA",
